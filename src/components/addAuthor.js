@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {authorActions} from '../actions/authorAction';
+import {crudAction} from '../actions/authorsCrudAction';
 export class AddAuthor extends React.Component{
  constructor(props){
 super(props);
@@ -10,18 +10,18 @@ last_name:''}
 }
  }
 
-handleAdd=(event)=>{
-    preventDefault();
+handleAdd(event){
+    event.preventDefault();
     this.setState({
         [event.target.name]:event.target.value
 });
-authorActions.addAuthor(this.state.author);
+crudAction.addAuthor(this.state.author);
 }
 
 render(){
 
 return(
-<form onSubmit={this.handleAdd}>
+<form onSubmit={this.handleAdd.bind(this)}>
   <div className="form-group">
     <label htmlFor="firstName">FirstName</label>
     <input type="text" className="form-control" id="firstName" name="first_name" placeholder="FirstName"></input>

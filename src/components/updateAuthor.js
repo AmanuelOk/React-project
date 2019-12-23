@@ -1,7 +1,7 @@
 
 import React from 'react';
-import {authorActions} from '../actions/authorAction';
-export class updateAuthor extends React.Component(props){
+import {crudAction} from '../actions/authorsCrudAction';
+export class updateAuthor extends React.Component{
  constructor(props){
 super(props);
 this.state = {
@@ -11,18 +11,18 @@ author:{author_id:''
 }
  }
 
-handleUpdate=(event)=>{
-    preventDefault();
+handleUpdate(event){
+    event.preventDefault();
     this.setState({
         [event.target.name]:event.target.value
 });
-authorActions.updateAuthor(this.state.author);
+crudAction.updateAuthor(this.state.author);
 }
 
 render(){
 
 return(
-<form onSubmit={this.handleUpdate}>
+<form onSubmit={this.handleUpdate.bind(this)}>
   <div className="form-group">
     <label htmlFor="firstName">FirstName</label>
     <input type="text" className="form-control" id="firstName" name="first_name" placeholder="FirstName"></input>

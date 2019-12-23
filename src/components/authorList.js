@@ -1,9 +1,8 @@
 "use strict"
-
-import React, {Fragment} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {authorActions} from '../actions/authorAction';
-
+import {Link} from 'react-router-dom';
 export class AuthorList extends React.Component{
 
     createAuthorsRow(author){
@@ -17,7 +16,7 @@ export class AuthorList extends React.Component{
     }
 
     componentDidMount(){
-        AuthorsAction.readAuthors();
+        authorActions.readAuthors();
     }
 
     render() {
@@ -34,15 +33,16 @@ export class AuthorList extends React.Component{
             );
         }
         
-
+    
         if(this.props.author.readState.success){
             content = 
                 (
-                    <React.Fragment>
+                    <div>
                     <ul>
                     <li className="list-inline-item"><Link to="/addAuthors" replace>Add</Link></li>
                     <li className="list-inline-item"><Link to="/deleteAuthors" replace>Delete</Link></li>
                     <li className="list-inline-item"><Link to="/updateAuthors" replace>Update</Link></li>
+                    <li>{this.props.info}</li>
                    </ul>
                 
                 <table className="table">
@@ -54,10 +54,10 @@ export class AuthorList extends React.Component{
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.authors.authorsList.map(this.createAuthorsRow, this)}
+                        {this.props.author.authorList.map(this.createAuthorsRow, this)}
                     </tbody>    
                 </table>
-                </React.Fragment>
+                </div>
                 )
                 
         }
@@ -81,7 +81,8 @@ export class AuthorList extends React.Component{
 }
 
 AuthorList.propTypes = {
-    author: PropTypes.object.isRequired
+    author: PropTypes.object.isRequired,
+    info: PropTypes.any.isRequired
 };
 
 

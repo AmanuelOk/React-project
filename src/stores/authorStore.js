@@ -30,7 +30,7 @@ class AuthorStoreClass extends EventEmitter{
     }
 
 
-    getAllauthors(){
+    getAllAuthors(){
         return _authorStore.author;
     }
 

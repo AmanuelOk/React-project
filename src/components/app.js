@@ -8,6 +8,7 @@ import {Home} from './home.js';
 import {BookList} from '../components/BookList';
 import {AuthorList} from '../components/authorList';
 import BookStore from '../stores/bookStore';
+import statusReport from '../stores/status'
 import authorStore from '../stores/authorStore';
 import {AddAuthor} from './addAuthor';
 import {deleteAuthor} from './deleteAuthor';
@@ -17,6 +18,7 @@ export class App extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
+            report:'',
             book:{
                 bookList: [],
                 readState:{
@@ -46,8 +48,8 @@ export class App extends React.Component{
                 <Switch>
                     <Route exact path='/' component={Home}/>
                     <Route path='/books' render={(props) => (<BookList {...props} book={this.state.book} />)}/>
-                    <Route path='/authors' render={(props) => (<AuthorList {...props} author={this.state.author} />)}/>
-                    <Route path='/addAuthors' render={(props) => (<AddAuthor{...props}/>)}/>
+                    <Route path='/authors' render={(props) => (<AuthorList {...props} info={this.state.report} author={this.state.author} />)}/>
+                    <Route path='/addAuthors' render={(props) => (<AddAuthor {...props}/>)}/>
                     <Route path='/deleteAuthors' render={(props) => (<deleteAuthor {...props}/>)}/>
                     <Route path='/updateAuthors' render={(props) => (<updateAuthor {...props}/>)}/>
                 </Switch>
@@ -58,11 +60,13 @@ export class App extends React.Component{
     componentDidMount(){
         authorStore.addChangeListener(this._onAuthorChange.bind(this));
         BookStore.addChangeListener(this._onBookChange.bind(this));
+        statusReport.addChangeListener(this._onEditChange.bind(this));
     }
 
     componentWillUnmount(){
         authorStore.removeChangeListener(this._onAuthorChange.bind(this));
         BookStore.removeChangeListener(this._onBookChange.bind(this));
+        statusReport.addChangeListener(this._onEditChange.bind(this));
     }
 
     _onAuthorChange(){
@@ -70,5 +74,8 @@ export class App extends React.Component{
     }
     _onBookChange(){
         this.setState({book: BookStore.getAllBooks()});
+    }
+    _onEditChange(){
+        this.setState({ report: statusReport.getStatus()})
     }
 }

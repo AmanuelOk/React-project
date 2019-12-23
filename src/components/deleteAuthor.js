@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {authorActions} from '../actions/authorAction';
+import {crudAction} from '../actions/authorsCrudAction';
 export class deleteAuthor extends React.Component{
  constructor(props){
 super(props);
@@ -9,18 +9,18 @@ author_id:''
 }
  }
 
-handleDelete=(event)=>{
-    preventDefault();
+handleDelete(event){
+    event.preventDefault();
     this.setState({
         [event.target.name]:event.target.value
 });
-authorActions.deleteAuthor(this.state.author_id);
+crudAction.deleteAuthor(this.state.author_id);
 }
 
 render(){
 
 return(
-<form onSubmit={this.handleDelete}>
+<form onSubmit={this.handleDelete.bind(this)}>
   <div className="form-group">
     <label htmlFor="author_id">Author_id</label>
     <input type="text" className="form-control" id="author_id" name="author_id" placeholder="Author_id"></input>
