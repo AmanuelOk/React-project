@@ -47,9 +47,9 @@ export class App extends React.Component{
                     <Route exact path='/' component={Home}/>
                     <Route path='/books' render={(props) => (<BookList {...props} book={this.state.book} />)}/>
                     <Route path='/authors' render={(props) => (<AuthorList {...props} author={this.state.author} />)}/>
-                    <Route path='/addAuthors' render={(props) => <AddAuthor/>}/>
-                    <Route path='/deleteAuthors' render={(props) => <deleteAuthor/>}/>
-                    <Route path='/updateAuthors' render={(props) => <updateAuthor/>}/>
+                    <Route path='/addAuthors' render={(props) => (<AddAuthor{...props}/>)}/>
+                    <Route path='/deleteAuthors' render={(props) => (<deleteAuthor {...props}/>)}/>
+                    <Route path='/updateAuthors' render={(props) => (<updateAuthor {...props}/>)}/>
                 </Switch>
             </div>
         );

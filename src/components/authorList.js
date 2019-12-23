@@ -2,7 +2,7 @@
 
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import authorActions from '../actions/authorActions';
+import {authorActions} from '../actions/authorAction';
 
 export class AuthorList extends React.Component{
 
