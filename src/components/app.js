@@ -11,14 +11,14 @@ import BookStore from '../stores/bookStore';
 import statusReport from '../stores/status'
 import authorStore from '../stores/authorStore';
 import {AddAuthor} from './addAuthor';
-import {deleteAuthor} from './deleteAuthor';
-import {updateAuthor} from './updateAuthor';
+import {DeleteAuthor} from './deleteAuthor';
+import {UpdateAuthor} from './updateAuthor';
+import {SubmissionStatus } from './submissionStatus.js';
 export class App extends React.Component{
 
     constructor(props) {
         super(props);
         this.state = {
-            report:'',
             book:{
                 bookList: [],
                 readState:{
@@ -36,7 +36,17 @@ export class App extends React.Component{
                     failure:false
                 },
                 error: ''
+            },
+            statusObj:{ 
+                report : '',
+                status:{
+                    pending:false,
+                    success:false,
+                    failure:false
+                },
+                error: ''
             }
+            
             
         }
     }
@@ -48,10 +58,11 @@ export class App extends React.Component{
                 <Switch>
                     <Route exact path='/' component={Home}/>
                     <Route path='/books' render={(props) => (<BookList {...props} book={this.state.book} />)}/>
-                    <Route path='/authors' render={(props) => (<AuthorList {...props} info={this.state.report} author={this.state.author} />)}/>
+                    <Route path='/authors' render={(props) => (<AuthorList {...props} author={this.state.author} />)}/>
                     <Route path='/addAuthors' render={(props) => (<AddAuthor {...props}/>)}/>
-                    <Route path='/deleteAuthors' render={(props) => (<deleteAuthor {...props}/>)}/>
-                    <Route path='/updateAuthors' render={(props) => (<updateAuthor {...props}/>)}/>
+                    <Route path='/deleteAuthors' render={(props) => (<DeleteAuthor {...props}/>)}/>
+                    <Route path='/updateAuthors' render={(props) => (<UpdateAuthor {...props}/>)}/>
+                    <Route path='/status' render={(props) => (<SubmissionStatus {...props} info={this.state.statusObj} />)}/>
                 </Switch>
             </div>
         );
@@ -76,6 +87,6 @@ export class App extends React.Component{
         this.setState({book: BookStore.getAllBooks()});
     }
     _onEditChange(){
-        this.setState({ report: statusReport.getStatus()})
+        this.setState({ statusObj: statusReport.getStatus()})
     }
 }

@@ -6,7 +6,7 @@ const BooksActions = {
         Dispatcher.dispatch({
             actionType: 'read_books_started'
         });
-        axios.get(`localhost:3001/book`)
+        axios.get(`http://localhost:3001/book`)
         .then(res => {
             Dispatcher.dispatch({
                 actionType: 'read_books_successful',

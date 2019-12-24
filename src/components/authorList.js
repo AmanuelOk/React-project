@@ -42,7 +42,6 @@ export class AuthorList extends React.Component{
                     <li className="list-inline-item"><Link to="/addAuthors" replace>Add</Link></li>
                     <li className="list-inline-item"><Link to="/deleteAuthors" replace>Delete</Link></li>
                     <li className="list-inline-item"><Link to="/updateAuthors" replace>Update</Link></li>
-                    <li>{this.props.info}</li>
                    </ul>
                 
                 <table className="table">
@@ -82,7 +81,6 @@ export class AuthorList extends React.Component{
 
 AuthorList.propTypes = {
     author: PropTypes.object.isRequired,
-    info: PropTypes.any.isRequired
 };
 
 
