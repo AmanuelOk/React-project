@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { crudAction } from '../actions/authorsCrudAction';
+import {authorActions} from '../actions/authorAction';
 export class UpdateAuthor extends React.Component {
   constructor(props) {
     super(props);
@@ -27,8 +28,9 @@ handleUpdate(event){
   event.preventDefault();
   crudAction.updateAuthor(this.state);
   console.log(this.state);
-this.reset();
-  //this.props.history.push("/status");
+  this.reset();
+  setTimeout(function(){authorActions.readAuthors();}, 300);
+  this.props.history.push("/authors");
 
 }
 

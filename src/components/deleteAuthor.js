@@ -1,6 +1,7 @@
 
 import React from 'react';
 import {crudAction} from '../actions/authorsCrudAction';
+import {authorActions} from '../actions/authorAction';
 export class DeleteAuthor extends React.Component{
  constructor(props){
 super(props);
@@ -21,7 +22,8 @@ handleDelete(event){
 crudAction.deleteAuthor(this.state);
 console.log(this.state);
 this.reset();
-//this.props.history.push("/status");
+setTimeout(function(){authorActions.readAuthors();}, 300);
+this.props.history.push("/authors");
 }
 
 render(){
